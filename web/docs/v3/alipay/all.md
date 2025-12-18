@@ -559,3 +559,9 @@ $result = Pay::alipay()->pay($allPlugins, $params);
 - 文字识别OCR
 
   `\Yansongda\Pay\Plugin\Alipay\V2\Member\Ocr\DetectPlugin`
+
+### 文件上传
+
+- 商品文件上传
+
+  `\Yansongda\Pay\Plugin\Alipay\V2\Merchant\Item\FileUploadPlugin`
