@@ -36,8 +36,10 @@ class AddRadarPlugin implements PluginInterface
             // 这里因为支付宝的 payload 里不包含 _method，所以需要取 params 中的
             get_radar_method(new Collection($params)) ?? 'POST',
             get_alipay_url($config, $payload),
-            $this->getHeaders(!empty($params['_multipart'])),
-            // 不能用 packer，支付宝接收的是 x-www-form-urlencoded 返回的又是 json，packer 用的是返回.
+            $this->getHeaders($params),
+            // 不能用 artful 中 get_radar_body 方法
+            // 来自 AddPayloadBodyPlugin 插件通过 packer 生成的 _body
+            // 支付宝接收的是 x-www-form-urlencoded 返回的又是 json，packer 用的是返回.
             $this->getBody($payload, $params)
         ));
 
@@ -46,9 +48,13 @@ class AddRadarPlugin implements PluginInterface
         return $next($rocket);
     }
 
-    protected function getHeaders(bool $multipart): array
+    protected function getHeaders(array $params): array
     {
-        return $multipart ? [] : [
+        if (!empty($params['_multipart'])) {
+            return [];
+        }
+
+        return [
             'Content-Type' => 'application/x-www-form-urlencoded',
             'User-Agent' => 'yansongda/pay-v3',
         ];

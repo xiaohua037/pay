@@ -40,4 +40,25 @@ class AddRadarPluginTest extends TestCase
         self::assertEquals('https://openapi.alipay.com/gateway.do?charset=utf-8', (string) $result->getRadar()->getUri());
         self::assertEquals('GET', $result->getRadar()->getMethod());
     }
+
+    public function testRadarHeaders()
+    {
+        $rocket = new Rocket();
+        $rocket->setParams([])->setPayload(new Collection(['name' => 'yansongda']));
+
+        $result = $this->plugin->assembly($rocket, function ($rocket) { return $rocket; });
+
+        self::assertEquals('application/x-www-form-urlencoded', $result->getRadar()->getHeaderLine('Content-Type'));
+        self::assertEquals('yansongda/pay-v3', $result->getRadar()->getHeaderLine('User-Agent'));
+    }
+
+    public function testRadarMultipart()
+    {
+        $rocket = new Rocket();
+        $rocket->setParams(['_multipart' => [[]]])->setPayload(new Collection(['name' => 'yansongda']));
+
+        $result = $this->plugin->assembly($rocket, function ($rocket) { return $rocket; });
+
+        self::assertEmpty($result->getRadar()->getHeaders());
+    }
 }

@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Plugin\Alipay\V2\Merchant\Item;
+namespace Yansongda\Pay\Tests\Plugin\Alipay\V2\Merchant\Item;
 
 use Yansongda\Artful\Rocket;
 use Yansongda\Pay\Plugin\Alipay\V2\Merchant\Item\FileUploadPlugin;
 use Yansongda\Pay\Tests\TestCase;
 
-/**
- * @internal
- *
- * @coversNothing
- */
 class FileUploadPluginTest extends TestCase
 {
     protected FileUploadPlugin $plugin;
