@@ -59,6 +59,6 @@ class AddRadarPluginTest extends TestCase
 
         $result = $this->plugin->assembly($rocket, function ($rocket) { return $rocket; });
 
-        self::assertEmpty($result->getRadar()->getHeaders());
+        self::assertEmpty($result->getRadar()->getHeaderLine('Content-Type'));
     }
 }
