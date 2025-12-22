@@ -55,7 +55,7 @@ class AddRadarPluginTest extends TestCase
     public function testRadarMultipart()
     {
         $rocket = new Rocket();
-        $rocket->setParams(['_multipart' => [[]]])->setPayload(new Collection(['name' => 'yansongda']));
+        $rocket->setParams(['_multipart' => [['name' => 'yansongda', 'contents' => 'yansongda']]])->setPayload(new Collection(['name' => 'yansongda']));
 
         $result = $this->plugin->assembly($rocket, function ($rocket) { return $rocket; });
 
